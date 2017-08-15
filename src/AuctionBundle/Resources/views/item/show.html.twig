@@ -1,0 +1,58 @@
+{% extends 'AuctionBundle::base.html.twig' %}
+
+{% block body %}
+    <h1>Item</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ item.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ item.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ item.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ item.image }}</td>
+            </tr>
+            <tr>
+                <th>Itemno</th>
+                <td>{{ item.itemNo }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ item.value }}</td>
+            </tr>
+            <tr>
+                <th>Minimumbid</th>
+                <td>{{ item.minimumBid }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if item.createdAt %}{{ item.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Endedat</th>
+                <td>{% if item.endedAt %}{{ item.endedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="btn-group pull-left">
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Delete" class="btn btn-danger">
+        {{ form_end(delete_form) }}
+    </div>
+
+    <div class="btn-group pull-right">
+        <a href="{{ path('item_index') }}" class="btn btn-default">Back to the list</a>
+        <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-default">Edit</a>
+    </div>
+
+{% endblock %}
