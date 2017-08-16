@@ -1,0 +1,21 @@
+{% extends 'AuctionBundle::base.html.twig' %}
+{% block title %}AuctionBundle:Security:login{% endblock %}
+{% block body %}
+    {% if error %}
+        <div class="alert alert-warning"><strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></div>
+    {% endif %}
+    <form action="{{ path('login') }}" method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password"   class="form-control"/>
+        </div>
+        <div class="btn-group">
+            <input type="hidden" name="_target_path" value="/item" />
+            <button type="submit"  class="btn btn-primary">login</button>
+        </div>
+    </form>
+{% endblock %}

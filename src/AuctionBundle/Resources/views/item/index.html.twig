@@ -18,20 +18,21 @@
                                  alt="..." class="img-thumbnail">
                         </div>
                         <div class="col-md-8">
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
                             <div class="btn-group pull-right">
                                 <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-default">edit</a>
                                 <a href="{{ path('item_show', { 'id': item.id }) }}" class="btn btn-default">show</a>
                             </div>
+                            {#{% endif %}#}
                             <h1 class="list-group-item-heading">{{ item.name }}</h1>
                             <p class="list-group-item-text"><strong>Item no. :</strong> {{ item.itemNo }}</p>
                             <p class="list-group-item-text"><strong>Description:</strong> {{ item.description }}</p>
                             <p class="list-group-item-text"><strong>Minimum Bid:</strong> {{ item.minimumBid }}</p>
-                            <p class="list-group-item-text"><strong>Date Time Ended</strong> {% if item.endedAt %}{{ item.endedAt|date('Y-m-d H:i:s') }}{% endif %}
+                            <p class="list-group-item-text"><strong>Date Time
+                                    Ended</strong> {% if item.endedAt %}{{ item.endedAt|date('Y-m-d H:i:s') }}{% endif %}
                             </p>
                         </div>
                     </div>
-
-
                 </div>
             {% endfor %}
         </ul>
