@@ -1,16 +1,14 @@
 {% extends 'AuctionBundle::base.html.twig' %}
-
 {% block body %}
     <h1>Item creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create"  class="btn btn-primary" />
+        <input type="submit" value="Create"  class="btn btn-primary pull-left" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('item_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="btn-group pull-right">
+        <a href="{{ path('item_index') }}" class="btn btn-default">Back to the list</a>
+    </div>
+
 {% endblock %}
