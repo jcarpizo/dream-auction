@@ -4,27 +4,29 @@
         <label>Search Item</label>
         <input type="text" class="form-control" placeholder="Search Item">
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-default small">
         <div class="panel-heading clearfix">
             <h3 class="panel-title pull-left">Items</h3>
-            <a href="{{ path('item_new') }}" class="btn btn-primary pull-right">New Item</a>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('item_new') }}" class="btn btn-default pull-right btn-xs"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            {% endif %}
         </div>
         <ul class="list-group ">
             {% for item in items %}
                 <div class="list-group-item clearfix">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <img src="https://cnet2.cbsistatic.com/img/wd-2myeZ62IKbNCATa11Cn1Si2A=/770x433/2017/06/06/dd40dd8d-e24b-4859-82e8-5848e5922109/apple-macbook-pro-touch-bar-15-inch-2017-4194.jpg"
-                                 alt="..." class="img-thumbnail">
+                                 alt="..." class="img-thumbnail" style="width: 200px;">
                         </div>
-                        <div class="col-md-8">
-                            {#{% if is_granted('ROLE_ADMIN') %}#}
-                            <div class="btn-group pull-right">
-                                <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-default">edit</a>
-                                <a href="{{ path('item_show', { 'id': item.id }) }}" class="btn btn-default">show</a>
+                        <div class="col-md-10">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <div class="btn-group pull-right ">
+                                <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href="{{ path('item_show', { 'id': item.id }) }}" class="btn btn-default btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             </div>
-                            {#{% endif %}#}
-                            <h1 class="list-group-item-heading">{{ item.name }}</h1>
+                            {% endif %}
+                            <h4 class="list-group-item-heading">{{ item.name }}</h4>
                             <p class="list-group-item-text"><strong>Item no. :</strong> {{ item.itemNo }}</p>
                             <p class="list-group-item-text"><strong>Description:</strong> {{ item.description }}</p>
                             <p class="list-group-item-text"><strong>Minimum Bid:</strong> {{ item.minimumBid }}</p>
