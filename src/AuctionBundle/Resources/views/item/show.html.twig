@@ -1,7 +1,7 @@
 {% extends 'AuctionBundle::base.html.twig' %}
 
 {% block body %}
-    <h1>Item</h1>
+    <h3>{{ item.name }}</h3>
     <table class="table">
         <tbody>
             <tr>
@@ -48,8 +48,8 @@
         {{ form_end(delete_form) }}
     </div>
     <div class="btn-group pull-right">
+        <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-primary">Edit</a>
         <a href="{{ path('item_index') }}" class="btn btn-default">Back to the list</a>
-        <a href="{{ path('item_edit', { 'id': item.id }) }}" class="btn btn-default">Edit</a>
     </div>
 
 {% endblock %}
