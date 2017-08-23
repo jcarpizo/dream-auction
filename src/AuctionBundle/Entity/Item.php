@@ -2,6 +2,7 @@
 
 namespace AuctionBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Uuid;
 
@@ -78,6 +79,13 @@ class Item
      */
     private $endedAt;
 
+    /**
+     * Item constructor.
+     */
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * Get id
