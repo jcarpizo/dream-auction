@@ -3,6 +3,7 @@
 namespace AuctionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Uuid;
 
 /**
  * Item
@@ -38,13 +39,6 @@ class Item
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255)
-     */
-    private $image;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="item_no", type="string", length=255)
      */
     private $itemNo;
@@ -62,6 +56,13 @@ class Item
      * @ORM\Column(name="minimum_bid", type="integer")
      */
     private $minimumBid;
+
+    /**
+     * @var Uuid
+     *
+     * @ORM\OneToMany(targetEntity="Image",mappedBy="item")
+     */
+    private $images;
 
     /**
      * @var \DateTime
@@ -134,30 +135,6 @@ class Item
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Item
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
