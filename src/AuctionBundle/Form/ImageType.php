@@ -2,18 +2,22 @@
 
 namespace AuctionBundle\Form;
 
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemType extends AbstractType
+class ImageType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('itemNo')->add('value')->add('minimumBid')->add('createdAt')->add('endedAt');
+        $builder->add('file',FileType::class,[
+            'attr' => ['multiple' => true]
+        ]);
     }
     
     /**
@@ -22,7 +26,7 @@ class ItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AuctionBundle\Entity\Item'
+            'data_class' => Collection::class
         ));
     }
 
@@ -31,7 +35,7 @@ class ItemType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'auctionbundle_item';
+        return 'auctionbundle_image';
     }
 
 
