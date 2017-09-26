@@ -7,7 +7,7 @@
     <div class="panel panel-default small">
         <div class="panel-heading clearfix">
             <h3 class="panel-title pull-left">Items</h3>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
             <a href="{{ path('item_new') }}" class="btn btn-default pull-right btn-xs"><i class="fa fa-plus" aria-hidden="true"></i></a>
             {% endif %}
         </div>

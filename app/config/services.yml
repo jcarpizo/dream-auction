@@ -29,6 +29,8 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AuctionBundle\Controller\AccountController:
+        arguments: ['@security.password_encoder']
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

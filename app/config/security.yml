@@ -4,12 +4,10 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    cloudstaff:
-                        password: $2y$12$Et/DQx4NKjWggBZyOFZAnuA922EI9Suf2/TddoqQwzZNKObMUSPrC
-                        roles: 'ROLE_ADMIN'
+        account_provider:
+            entity:
+                class: AuctionBundle:Account
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -32,17 +30,15 @@ security:
              anonymous: ~
 
     access_control:
-        - { path: ^/item/new$, roles: ROLE_ADMIN }
-        - { path: ^/item/[^/]+$, roles: ROLE_ADMIN }
-        - { path: ^/item/[^/]+/edit$, roles: ROLE_ADMIN }
+        - { path: ^/item/new$, roles: ROLE_USER }
+        - { path: ^/item/[^/]+$, roles: ROLE_USER }
+        - { path: ^/item/[^/]+/edit$, roles: ROLE_USER }
 
 
     encoders:
-        Symfony\Component\Security\Core\User\User:
+        AuctionBundle\Entity\Account:
             algorithm: bcrypt
-            cost: 12
-
-
+            cost: 13
 
             # activate different ways to authenticate
 
