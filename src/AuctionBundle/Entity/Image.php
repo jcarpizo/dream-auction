@@ -116,7 +116,7 @@ class Image
      *
      * @return Image
      */
-    public function setItemId($itemId)
+    public function setItemId(Item $itemId)
     {
         $this->itemId = $itemId;
 

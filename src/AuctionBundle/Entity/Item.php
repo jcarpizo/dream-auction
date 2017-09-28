@@ -54,14 +54,14 @@ class Item
     /**
      * @var int
      *
-     * @ORM\Column(name="minimum_bid", type="integer")
+     * @ORM\Column(name="minimum_bid", type="bigint")
      */
     private $minimumBid;
 
     /**
      * @var Uuid
      *
-     * @ORM\OneToMany(targetEntity="Image",mappedBy="item")
+     * @ORM\OneToMany(targetEntity="Image",mappedBy="item",cascade={"persist"})
      */
     private $images;
 
@@ -79,6 +79,8 @@ class Item
      */
     private $endedAt;
 
+    private $pictures;
+
     /**
      * Item constructor.
      */
@@ -91,6 +93,8 @@ class Item
      * Get id
      *
      * @return int
+     *
+     *
      */
     public function getId()
     {
@@ -263,6 +267,38 @@ class Item
     public function getEndedAt()
     {
         return $this->endedAt;
+    }
+
+    /**
+     * @return Uuid
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param Uuid $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @param mixed $pictures
+     */
+    public function setPictures($pictures)
+    {
+        $this->pictures = $pictures;
     }
 }
 

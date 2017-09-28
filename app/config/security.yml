@@ -30,9 +30,9 @@ security:
              anonymous: ~
 
     access_control:
-        - { path: ^/item/new$, roles: ROLE_USER }
-        - { path: ^/item/[^/]+$, roles: ROLE_USER }
-        - { path: ^/item/[^/]+/edit$, roles: ROLE_USER }
+        - { path: ^/item/new$, roles: ROLE_ADMIN }
+        - { path: ^/item/[^/]+$, roles: ROLE_ADMIN }
+        - { path: ^/item/[^/]+/edit$, roles: ROLE_ADMIN }
 
 
     encoders:

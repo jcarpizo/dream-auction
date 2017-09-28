@@ -2,6 +2,7 @@
 
 namespace AuctionBundle\Controller;
 
+use AuctionBundle\Entity\Image;
 use AuctionBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -46,6 +47,15 @@ class ItemController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            foreach ($item->getPictures() as $picture) {
+                $fileName = md5(uniqid()).'.'.$picture->guessExtension();
+                $image =  new Image();
+                $image->setName($picture->getClientOriginalName())->setFile($fileName)->setItemId($item)->setCreatedAt(new \DateTime());
+                $item->getImages()->add($image);
+            }
+            $item->setCreatedAt(new \DateTime())->setEndedAt(new \DateTime());
+
             $em->persist($item);
             $em->flush();
 
