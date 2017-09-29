@@ -15,15 +15,11 @@ class ItemType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('pictures',FileType::class,[
+        $builder->add('pictures', FileType::class, [
             'multiple' => true,
-            'by_reference' => false
-        ])->add('name')->add('description')->add('itemNo')->add('value')->add('minimumBid')
-            ->add('images', CollectionType::class,[
-
-            ]);
+        ])->add('name')->add('description')->add('itemNo')->add('value')->add('minimumBid')->add('images',CollectionType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */

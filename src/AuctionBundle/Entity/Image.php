@@ -110,15 +110,12 @@ class Image
     }
 
     /**
-     * Set itemId
-     *
-     * @param integer $itemId
-     *
-     * @return Image
+     * @param Item $item
+     * @return $this
      */
-    public function setItemId(Item $itemId)
+    public function setItem(Item $item)
     {
-        $this->itemId = $itemId;
+        $this->item = $item;
 
         return $this;
     }
@@ -128,9 +125,9 @@ class Image
      *
      * @return int
      */
-    public function getItemId()
+    public function getItem()
     {
-        return $this->itemId;
+        return $this->item;
     }
 
     /**

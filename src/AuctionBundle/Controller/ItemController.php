@@ -49,9 +49,12 @@ class ItemController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             foreach ($item->getPictures() as $picture) {
-                $fileName = md5(uniqid()).'.'.$picture->guessExtension();
-                $image =  new Image();
-                $image->setName($picture->getClientOriginalName())->setFile($fileName)->setItemId($item)->setCreatedAt(new \DateTime());
+                $fileName = md5(uniqid()) . '.' . $picture->guessExtension();
+                $image = new Image();
+                $image->setName($picture->getClientOriginalName())
+                    ->setFile($fileName)
+                    ->setItem($item)
+                    ->setCreatedAt(new \DateTime());
                 $item->getImages()->add($image);
             }
             $item->setCreatedAt(new \DateTime())->setEndedAt(new \DateTime());
@@ -141,7 +144,6 @@ class ItemController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('item_delete', array('id' => $item->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
