@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Item controller.
@@ -51,6 +52,10 @@ class ItemController extends Controller
             foreach ($item->getPictures() as $picture) {
                 $fileName = md5(uniqid()) . '.' . $picture->guessExtension();
                 $image = new Image();
+                $picture->move(
+                    $this->getParameter('items_directory'),
+                    $fileName
+                );
                 $image->setName($picture->getClientOriginalName())
                     ->setFile($fileName)
                     ->setItem($item)
@@ -80,7 +85,6 @@ class ItemController extends Controller
     public function showAction(Item $item)
     {
         $deleteForm = $this->createDeleteForm($item);
-
         return $this->render('AuctionBundle::item/show.html.twig', array(
             'item' => $item,
             'delete_form' => $deleteForm->createView(),
@@ -98,12 +102,27 @@ class ItemController extends Controller
         $deleteForm = $this->createDeleteForm($item);
         $editForm = $this->createForm('AuctionBundle\Form\ItemType', $item);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
+            foreach ($item->getPictures() as $picture) {
+                $fileName = md5(uniqid()) . '.' . $picture->guessExtension();
+                $image = new Image();
+                $picture->move(
+                    $this->getParameter('items_directory'),
+                    $fileName
+                );
+                $image->setName($picture->getClientOriginalName())
+                    ->setFile($fileName)
+                    ->setItem($item)
+                    ->setCreatedAt(new \DateTime());
+                $item->getImages()->add($image);
+            }
+
+
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('item_edit', array('id' => $item->getId()));
         }
+
 
         return $this->render('AuctionBundle::item/edit.html.twig', array(
             'item' => $item,

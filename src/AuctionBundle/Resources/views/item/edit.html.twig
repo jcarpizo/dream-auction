@@ -2,10 +2,14 @@
 {% block body %}
     <h3>Update Item</h3>
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <ul>
+        {%  for image in item.images %}
+            <li><img src="{{ asset('uploads/items/') ~  image.file  }}"></li>
+        {%  endfor %}
+    </ul>
         <input type="submit" value="Update" class="btn btn-primary pull-left"/>
     {{ form_end(edit_form) }}
-
     <div class="btn-group pull-right">
         {{ form_start(delete_form) }}
         <input type="submit" value="Delete" class="btn btn-danger">

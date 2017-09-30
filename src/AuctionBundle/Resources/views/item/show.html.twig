@@ -37,6 +37,12 @@
                 <td>{% if item.endedAt %}{{ item.endedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
         </tbody>
+        <ul>
+            {%  for image in item.images %}
+                <li>{{ image.name }}</li>
+            {%  endfor %}
+        </ul>
+
     </table>
     <div class="btn-group pull-left">
         {{ form_start(delete_form) }}
