@@ -45,20 +45,6 @@ class Item
     private $itemNo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="value", type="string", length=255)
-     */
-    private $value;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="minimum_bid", type="bigint")
-     */
-    private $minimumBid;
-
-    /**
      * @var Uuid
      *
      * @ORM\OneToMany(targetEntity="Image",mappedBy="item",cascade={"persist"})
@@ -80,6 +66,34 @@ class Item
     private $endedAt;
 
     private $pictures;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_used", type="boolean")
+     */
+    private $isUsed;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reward_points", type="bigint")
+     */
+    private $rewardPoints;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sold_by", type="string", length=255)
+     */
+    private $soldBy;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=255)
+     */
+    private $location;
 
     /**
      * Item constructor.
@@ -174,54 +188,6 @@ class Item
     }
 
     /**
-     * Set value
-     *
-     * @param string $value
-     *
-     * @return Item
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Set minimumBid
-     *
-     * @param integer $minimumBid
-     *
-     * @return Item
-     */
-    public function setMinimumBid($minimumBid)
-    {
-        $this->minimumBid = $minimumBid;
-
-        return $this;
-    }
-
-    /**
-     * Get minimumBid
-     *
-     * @return int
-     */
-    public function getMinimumBid()
-    {
-        return $this->minimumBid;
-    }
-
-    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -299,6 +265,70 @@ class Item
     public function setPictures($pictures)
     {
         $this->pictures = $pictures;
+    }
+
+    /**
+     * @return string
+     */
+    public function getisUsed()
+    {
+        return $this->isUsed;
+    }
+
+    /**
+     * @param string $isUsed
+     */
+    public function setIsUsed($isUsed)
+    {
+        $this->isUsed = $isUsed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRewardPoints()
+    {
+        return $this->rewardPoints;
+    }
+
+    /**
+     * @param string $rewardPoints
+     */
+    public function setRewardPoints($rewardPoints)
+    {
+        $this->rewardPoints = $rewardPoints;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSoldBy()
+    {
+        return $this->soldBy;
+    }
+
+    /**
+     * @param string $soldBy
+     */
+    public function setSoldBy($soldBy)
+    {
+        $this->soldBy = $soldBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param string $location
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
     }
 }
 

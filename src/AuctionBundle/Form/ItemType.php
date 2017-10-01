@@ -18,7 +18,8 @@ class ItemType extends AbstractType
         $builder->add('pictures', FileType::class, [
             'multiple' => true,
             'required' => false,
-        ])->add('name')->add('description')->add('itemNo')->add('value')->add('minimumBid');
+        ])->add('name')->add('description')->add('itemNo')->add('soldBy')
+            ->add('rewardPoints')->add('isUsed')->add('location');
     }
 
     /**
