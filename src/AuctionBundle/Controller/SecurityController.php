@@ -4,20 +4,24 @@ namespace AuctionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 class SecurityController extends Controller
 {
     /**
+     *
      * @Route("/login", name="login")
+     * @param Request $request
+     * @param AuthenticationUtils $authUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
     {
         // get the login error if there is one
 
-        $authUtils = $this->get('security.authentication_utils');
+        //$authUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
         $error = $authUtils->getLastAuthenticationError();
@@ -27,7 +31,7 @@ class SecurityController extends Controller
 
         return $this->render('AuctionBundle::Security/login.html.twig', array(
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
         ));
     }
 

@@ -1,11 +1,6 @@
 {% extends 'AuctionBundle::base.html.twig' %}
 
 {% block body %}
-    {#<ul>#}
-    {#{%  for image in item.images %}#}
-    {#<li><img style="height: 280px;width: 100%" src="{{ asset('uploads/items/') ~  image.file  }}"></li>#}
-    {#{%  endfor %}#}
-    {#</ul>#}
     <div class="row">
         <div class="col-md-6">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -45,27 +40,27 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tr>
-                            <th width="20%">Item Condition:</th>
+                            <th width="25%">Item Condition:</th>
                             <td>{{ item.isUsed }}</td>
                         </tr>
                         <tr>
-                            <th width="20%">Item No.:</th>
+                            <th>Item No:</th>
                             <td>{{ item.itemNo }}</td>
                         </tr>
                         <tr>
-                            <th width="20%">Reward Points:</th>
+                            <th>Reward Points:</th>
                             <td>{{ item.rewardPoints }}</td>
                         </tr>
                         <tr>
-                            <th width="20%">Location:</th>
+                            <th>Location:</th>
                             <td>{{ item.location }}</td>
                         </tr>
                         <tr>
-                            <th width="20%">Sold By:</th>
+                            <th>Sold By:</th>
                             <td>{{ item.soldBy }}</td>
                         </tr>
                         <tr>
-                            <th>Ended Date</th>
+                            <th>Ended Date:</th>
                             <td>{% if item.endedAt %}{{ item.endedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                         <tr>

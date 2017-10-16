@@ -4,6 +4,7 @@ namespace AuctionBundle\Controller;
 
 use AuctionBundle\Entity\Image;
 use AuctionBundle\Entity\Item;
+use AuctionBundle\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,10 +27,8 @@ class ItemController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $items = $em->getRepository('AuctionBundle:Item')->findAll();
-
-        return $this->render('AuctionBundle::item/index.html.twig', array(
+        return $this->render('AuctionBundle:Item:index.html.twig', array(
             'items' => $items,
         ));
     }
@@ -43,7 +42,7 @@ class ItemController extends Controller
     public function newAction(Request $request)
     {
         $item = new Item();
-        $form = $this->createForm('AuctionBundle\Form\ItemType', $item);
+        $form = $this->createForm(ItemType::class, $item);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,8 +68,7 @@ class ItemController extends Controller
 
             return $this->redirectToRoute('item_show', array('id' => $item->getId()));
         }
-
-        return $this->render('AuctionBundle::item/new.html.twig', array(
+        return $this->render('AuctionBundle:Item:new.html.twig', array(
             'item' => $item,
             'form' => $form->createView(),
         ));
@@ -85,7 +83,7 @@ class ItemController extends Controller
     public function showAction(Item $item)
     {
         $deleteForm = $this->createDeleteForm($item);
-        return $this->render('AuctionBundle::item/show.html.twig', array(
+        return $this->render('AuctionBundle:Item:show.html.twig', array(
             'item' => $item,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -100,7 +98,7 @@ class ItemController extends Controller
     public function editAction(Request $request, Item $item)
     {
         $deleteForm = $this->createDeleteForm($item);
-        $editForm = $this->createForm('AuctionBundle\Form\ItemType', $item);
+        $editForm = $this->createForm(ItemType::class, $item);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
@@ -124,7 +122,7 @@ class ItemController extends Controller
         }
 
 
-        return $this->render('AuctionBundle::item/edit.html.twig', array(
+        return $this->render('AuctionBundle:Item:edit.html.twig', array(
             'item' => $item,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

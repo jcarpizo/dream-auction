@@ -19,14 +19,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class AccountController extends Controller
 {
-
-    private $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder)
-    {
-        $this->encoder = $encoder;
-    }
-
     /**
      * Lists all account entities.
      *
@@ -36,10 +28,8 @@ class AccountController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $accounts = $em->getRepository('AuctionBundle:Account')->findAll();
-
-        return $this->render('account/index.html.twig', array(
+        return $this->render('AuctionBundle:Account:index.html.twig', array(
             'accounts' => $accounts,
         ));
     }
@@ -50,21 +40,19 @@ class AccountController extends Controller
      * @Route("/register", name="account_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $account = new Admin();
         $form = $this->createForm(AccountType::class, $account);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $account->setPassword($this->encoder->encodePassword($account,$account->getPassword()));
+            $account->setPassword($encoder->encodePassword($account,$account->getPassword()));
             $em->persist($account);
             $em->flush();
-
             return $this->redirectToRoute('account_show', array('id' => $account->getId()));
         }
-
-        return $this->render('account/new.html.twig', array(
+        return $this->render('AuctionBundle:Account:new.html.twig', array(
             'account' => $account,
             'form' => $form->createView(),
         ));
@@ -79,8 +67,7 @@ class AccountController extends Controller
     public function showAction(Account $account)
     {
         $deleteForm = $this->createDeleteForm($account);
-
-        return $this->render('account/show.html.twig', array(
+        return $this->render('AuctionBundle:Account:show.html.twig', array(
             'account' => $account,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -95,7 +82,7 @@ class AccountController extends Controller
     public function editAction(Request $request, Account $account)
     {
         $deleteForm = $this->createDeleteForm($account);
-        $editForm = $this->createForm('AuctionBundle\Form\AccountType', $account);
+        $editForm = $this->createForm(AccountType::class, $account);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -103,8 +90,7 @@ class AccountController extends Controller
 
             return $this->redirectToRoute('account_edit', array('id' => $account->getId()));
         }
-
-        return $this->render('account/edit.html.twig', array(
+        return $this->render('AuctionBundle:Account:edit.html.twig', array(
             'account' => $account,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -121,13 +107,11 @@ class AccountController extends Controller
     {
         $form = $this->createDeleteForm($account);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($account);
             $em->flush();
         }
-
         return $this->redirectToRoute('account_index');
     }
 

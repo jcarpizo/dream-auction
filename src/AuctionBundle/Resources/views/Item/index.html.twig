@@ -6,8 +6,14 @@
                 <div class="col-xs-6 col-sm-3">
                     <div class="panel panel-default small item">
                         <div class="panel-body">
-                            <img class="img-responsive"
-                                 src="https://cnet2.cbsistatic.com/img/wd-2myeZ62IKbNCATa11Cn1Si2A=/770x433/2017/06/06/dd40dd8d-e24b-4859-82e8-5848e5922109/apple-macbook-pro-touch-bar-15-inch-2017-4194.jpg"/>
+                            {% for image in item.images %}
+                                {% if (loop.index == 1) %}
+
+                                    <img style="height: 100px;width: 100%" class="img-responsive"
+                                         src="{{ asset('uploads/items/') ~  image.file }}"/>
+                                {% endif %}
+
+                            {% endfor %}
                         </div>
                         <div class="panel-footer">
                             <span>{{ item.name }}</span><br/>
