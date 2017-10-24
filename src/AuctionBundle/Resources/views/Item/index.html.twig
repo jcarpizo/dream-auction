@@ -9,10 +9,16 @@
                             {% for image in item.images %}
                                 {% if (loop.index == 1) %}
 
-                                    <img style="height: 100px;width: 100%" class="img-responsive"
-                                         src="{{ asset('uploads/items/') ~  image.file }}"/>
-                                {% endif %}
+                                    {% set itemname =   image.file %}
+                                    {% image 'uploads/items/'  output='/uploads/items/' %}
+                                    <img src="{{ asset_url ~  image.file }} " alt="Example" style="height: 100px;width: 100%"/>
+                                    {% endimage %}
 
+                                    {#<img style="height: 100px;width: 100%" class="img-responsive"#}
+                                    {#src="{{ asset('uploads/items/') ~  image.file }}"/>#}
+
+
+                                {% endif %}
                             {% endfor %}
                         </div>
                         <div class="panel-footer">

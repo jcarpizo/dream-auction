@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}CloudStaff Dream Auction{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-flatly.min.css') }}">
+
+    {% stylesheets
+    'bundles/auction/css/bootstrap.min.css'
+    'bundles/auction/css/robots.css'
+    'bundles/auction/css/bootstrap-flatly.min.css'
+    filter='cssrewrite' output='css/compiled/app.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
     <style>
         body {
             padding-top: 100px;
         }
+
         .item:hover {
             text-decoration: underline;
         }
@@ -21,7 +27,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -45,12 +52,15 @@
     {% block body %}{% endblock %}
 </div>
 
-{% block javascripts %}
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <script src="{{ asset('js/4eb93206e0.js') }}"></script>
-{% endblock %}
+
+{% javascripts
+'bundles/auction/js/jquery.min.js'
+'bundles/auction/js/bootstrap.min.js'
+'bundles/auction/js/4eb93206e0.js'
+output='js/compiled/app.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
 </body>
 </html>
